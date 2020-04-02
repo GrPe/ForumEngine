@@ -14,6 +14,8 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Identity.UI.Services;
 using ForumEngine.Data.Mocks;
+using ForumEngine.Data.DTO;
+using AutoMapper;
 
 namespace ForumEngine
 {
@@ -26,18 +28,17 @@ namespace ForumEngine
 
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlServer(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddIdentity<ForumUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
             services.AddControllersWithViews();
             services.AddRazorPages();
 
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
             services.Configure<IdentityOptions>(options =>
             {
@@ -51,6 +52,7 @@ namespace ForumEngine
                 options.User.RequireUniqueEmail = true;
             });
 
+            services.AddScoped<PostRepository>();
             services.AddScoped<IEmailSender, EmailSenderMock>();
         }
 

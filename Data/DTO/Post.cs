@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace ForumEngine.Data
+namespace ForumEngine.Data.DTO
 {
-    public class Comment
+    public class Post
     {
-        public int Id { get; set; }
-        public Post Post { get; set; }
+        public Guid Id { get; set; }
         public ForumUser User { get; set; }
-        public string Context { get; set; }
+        public string Title { get; set; }
+        public string Content { get; set; }
         public string PhotoPath { get; set; }
         public DateTime CreatedOn { get; set; }
         public DateTime ModifiedOn { get; set; }
+        public List<Comment> Comments { get; set; }
     }
 }

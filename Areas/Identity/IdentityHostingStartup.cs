@@ -1,5 +1,6 @@
 ﻿using System;
 using ForumEngine.Data;
+using ForumEngine.Data.DTO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.UI;

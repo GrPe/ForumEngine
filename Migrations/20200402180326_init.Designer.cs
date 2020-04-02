@@ -7,11 +7,11 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace ForumEngine.Data.Migrations
+namespace ForumEngine.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20200328171134_3")]
-    partial class _3
+    [Migration("20200402180326_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -21,14 +21,13 @@ namespace ForumEngine.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("ForumEngine.Data.Comment", b =>
+            modelBuilder.Entity("ForumEngine.Data.DTO.Comment", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
-                    b.Property<string>("Context")
+                    b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime>("CreatedOn")
@@ -40,8 +39,8 @@ namespace ForumEngine.Data.Migrations
                     b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PostId")
-                        .HasColumnType("int");
+                    b.Property<Guid?>("PostId")
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("UserId")
                         .HasColumnType("nvarchar(450)");
@@ -55,7 +54,7 @@ namespace ForumEngine.Data.Migrations
                     b.ToTable("Comments");
                 });
 
-            modelBuilder.Entity("ForumEngine.Data.ForumUser", b =>
+            modelBuilder.Entity("ForumEngine.Data.DTO.ForumUser", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -129,12 +128,11 @@ namespace ForumEngine.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("ForumEngine.Data.Post", b =>
+            modelBuilder.Entity("ForumEngine.Data.DTO.Post", b =>
                 {
-                    b.Property<int>("Id")
+                    b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+                        .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Content")
                         .HasColumnType("nvarchar(max)");
@@ -146,6 +144,9 @@ namespace ForumEngine.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("PhotoPath")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Title")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")
@@ -289,20 +290,20 @@ namespace ForumEngine.Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
-            modelBuilder.Entity("ForumEngine.Data.Comment", b =>
+            modelBuilder.Entity("ForumEngine.Data.DTO.Comment", b =>
                 {
-                    b.HasOne("ForumEngine.Data.Post", "Post")
+                    b.HasOne("ForumEngine.Data.DTO.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId");
 
-                    b.HasOne("ForumEngine.Data.ForumUser", "User")
+                    b.HasOne("ForumEngine.Data.DTO.ForumUser", "User")
                         .WithMany("Comments")
                         .HasForeignKey("UserId");
                 });
 
-            modelBuilder.Entity("ForumEngine.Data.Post", b =>
+            modelBuilder.Entity("ForumEngine.Data.DTO.Post", b =>
                 {
-                    b.HasOne("ForumEngine.Data.ForumUser", "User")
+                    b.HasOne("ForumEngine.Data.DTO.ForumUser", "User")
                         .WithMany("Posts")
                         .HasForeignKey("UserId");
                 });
@@ -318,7 +319,7 @@ namespace ForumEngine.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("ForumEngine.Data.ForumUser", null)
+                    b.HasOne("ForumEngine.Data.DTO.ForumUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -327,7 +328,7 @@ namespace ForumEngine.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("ForumEngine.Data.ForumUser", null)
+                    b.HasOne("ForumEngine.Data.DTO.ForumUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -342,7 +343,7 @@ namespace ForumEngine.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("ForumEngine.Data.ForumUser", null)
+                    b.HasOne("ForumEngine.Data.DTO.ForumUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -351,7 +352,7 @@ namespace ForumEngine.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("ForumEngine.Data.ForumUser", null)
+                    b.HasOne("ForumEngine.Data.DTO.ForumUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

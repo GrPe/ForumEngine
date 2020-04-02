@@ -1,0 +1,32 @@
+﻿@model PostListViewModel
+
+@{
+    ViewData["Title"] = "My Posts";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+@if (Model.Posts == null)
+{
+    <div class="text-center">
+        <h3>Nothing to display here</h3>
+    </div>
+}
+else
+{
+    @foreach (var post in Model.Posts)
+    {
+        <hr />
+        <div class="media">
+            <img src="~/img/post.png" class="mr-3" width="64" height="64" />
+            <div class="media-body">
+                <a asp-action="Post" asp-route-id="@post.Id">
+                    <h5 class="mt-0">@post.Title</h5>
+                </a>
+                @post.ContentSummary
+            </div>
+        </div>
+        <br />
+    }
+
+}
