@@ -13,5 +13,8 @@ namespace ForumEngine.Models
         public string PhotoPath { get; set; }
         public DateTime CreatedOn { get; set; }
         public List<CommentViewModel> Comments { get; set; }
+
+        //permanent hack
+        public string NewCommentContent { get; set; }
     }
 }

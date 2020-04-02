@@ -33,7 +33,7 @@ namespace ForumEngine.Data.DTO
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(scr => SplitContent(scr.Content)))
                 .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(scr => scr.PhotoPath))
                 .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(scr => scr.CreatedOn))
-                .ForMember(dest => dest.Comments, opt => opt.MapFrom(scr => scr.Comments));
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(scr => scr.Comments.OrderBy(c => c.CreatedOn)));
 
             CreateMap<IEnumerable<Post>, PostListViewModel>()
                 .ForMember(dest => dest.Posts, opt => opt.MapFrom(scr => scr.OrderByDescending(p => p.CreatedOn)));

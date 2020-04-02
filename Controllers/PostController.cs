@@ -47,6 +47,26 @@ namespace ForumEngine.Controllers
             return View(model);
         }
 
+        [HttpPost]
+        [ActionName("Post")]
+        public async Task<IActionResult> AddComment(PostViewModel model)
+        {
+            var post = await postRepository.GetByIdAsync(model.Id);
+            var user = await userManager.GetUserAsync(User);
+
+            var comment = new Comment()
+            {
+                User = user,
+                Post = post,
+                Content = model.NewCommentContent,
+                CreatedOn = DateTime.UtcNow
+            };
+
+            await postRepository.AddCommentAsync(comment);
+
+            return RedirectToAction("Post");
+        }
+
         [HttpGet]
         public IActionResult Add()
         {

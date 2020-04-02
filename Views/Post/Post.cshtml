@@ -1,29 +1,39 @@
 ﻿@model PostViewModel
 
-    <div class="jumbotron">
-        <h1 class="display-4">@Model.Title</h1>
-        <a asp-action="Edit" asp-route-id="@Model.Id" style="width:100px" class="btn btn-primary">Edit</a>
-        <a asp-action="Remove" asp-route-id="@Model.Id" style="width:100px" class="btn btn-danger">Remove</a>
-        <hr />
-        <div class="lead">
-            @foreach (var c in Model.Content)
-            {
-                <p>@c</p>
-            }
-        </div>
-        <hr class="my-4">
-        @foreach (var comment in Model.Comments)
+<div class="jumbotron">
+    <h1 class="display-4">@Model.Title</h1>
+    <a asp-action="Edit" asp-route-id="@Model.Id" style="width:100px" class="btn btn-primary">Edit</a>
+    <a asp-action="Remove" asp-route-id="@Model.Id" style="width:100px" class="btn btn-danger">Remove</a>
+    <hr />
+    <div class="lead">
+        @foreach (var c in Model.Content)
         {
-            <hr />
-            <div class="media">
-                <img src="~/img/post.png" class="mr-3" width="64" height="64" />
-                <div class="media-body">
-                    @foreach (var c in comment.Content)
-                    {
-                        <p>@c</p>
-                    }
-                </div>
-            </div>
-            <br />
+            <p>@c</p>
         }
     </div>
+    <hr class="my-4">
+    @foreach (var comment in Model.Comments)
+    {
+        <hr />
+        <div class="media">
+            <img src="~/img/post.png" class="mr-3" width="64" height="64" />
+            <div class="media-body">
+                @foreach (var c in comment.Content)
+                {
+                    <p>@c</p>
+                }
+            </div>
+        </div>
+        <br />
+    }
+    <br />
+    <hr />
+    <form asp-action="Post" method="post">
+        <div class="form-group">
+            <textarea asp-for="NewCommentContent" class="form-control" rows="3"></textarea>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Add comment" class="btn btn-primary" />
+        </div>
+    </form>
+</div>

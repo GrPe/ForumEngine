@@ -51,5 +51,11 @@ namespace ForumEngine.Data
             context.Posts.Remove(post);
             await context.SaveChangesAsync();
         }
+
+        public async Task AddCommentAsync(Comment comment)
+        {
+            await context.Comments.AddAsync(comment);
+            await context.SaveChangesAsync();
+        }
     }
 }
