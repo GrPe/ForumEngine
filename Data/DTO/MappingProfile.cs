@@ -43,6 +43,9 @@ namespace ForumEngine.Data.DTO
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(scr => scr.Title))
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(scr => scr.Content))
                 .ReverseMap();
+
+            CreateMap<IEnumerable<Post>, HomeViewModel>()
+                .ForMember(dest => dest.Posts, opt => opt.MapFrom(scr => scr));
         }
 
         private List<string> SplitContent(string content)

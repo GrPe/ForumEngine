@@ -7,21 +7,34 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using ForumEngine.Models;
 using ForumEngine.Data;
+using AutoMapper;
 
 namespace ForumEngine.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly PostRepository postRepository;
+        private readonly IMapper mapper;
 
-        public HomeController(ILogger<HomeController> logger, ApplicationDbContext context)
+        public HomeController(ILogger<HomeController> logger, PostRepository postRepository, IMapper mapper)
         {
             _logger = logger;
+            this.postRepository = postRepository;
+            this.mapper = mapper;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int? page)
         {
-            return View();
+            if(User.Identity.IsAuthenticated)
+            {
+                var response = postRepository.GetListByPage(page ?? 0);
+                var model = mapper.Map<HomeViewModel>(response);
+
+                return View(model);
+            }
+
+            return View(null);
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

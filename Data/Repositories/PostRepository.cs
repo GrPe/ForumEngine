@@ -28,6 +28,11 @@ namespace ForumEngine.Data
             return context.Posts.Include(p => p.User).Include(p => p.Comments).ThenInclude(c => c.User).Where(p => p.Id == id).FirstOrDefaultAsync();
         }
 
+        public IEnumerable<Post> GetListByPage(int page, int pageSize= 20)
+        {
+            return context.Posts.OrderByDescending(p => p.CreatedOn).Skip(pageSize * page).Take(pageSize);
+        }
+
         public async Task AddAsync(Post post)
         {
             post.CreatedOn = DateTime.UtcNow;
