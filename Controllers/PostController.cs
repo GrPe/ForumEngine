@@ -19,11 +19,12 @@ namespace ForumEngine.Controllers
         private readonly IMapper mapper;
         private readonly IImageStorage imageStorage;
 
-        public PostController(PostRepository repository, UserManager<ForumUser> userManager, IMapper mapper)
+        public PostController(PostRepository repository, UserManager<ForumUser> userManager, IMapper mapper, IImageStorage imageStorage)
         {
             postRepository = repository;
             this.userManager = userManager;
             this.mapper = mapper;
+            this.imageStorage = imageStorage;
         }
 
         public async Task<IActionResult> Index()
@@ -80,7 +81,7 @@ namespace ForumEngine.Controllers
 
             var post = mapper.Map<Post>(model);
 
-            //post.PhotoPath = await imageStorage.Save(model.Image);
+            post.PhotoPath = await imageStorage.Save(model.Image);
             post.User = user;
 
             await postRepository.AddAsync(post);

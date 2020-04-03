@@ -16,6 +16,7 @@ using Microsoft.AspNetCore.Identity.UI.Services;
 using ForumEngine.Data.Mocks;
 using ForumEngine.Data.DTO;
 using AutoMapper;
+using ForumEngine.Data.Images;
 
 namespace ForumEngine
 {
@@ -54,6 +55,8 @@ namespace ForumEngine
 
             services.AddScoped<PostRepository>();
             services.AddScoped<IEmailSender, EmailSenderMock>();
+            services.AddScoped<IImageStorage, AzureImageStorage>();
+            services.AddSingleton<IConfiguration>(Configuration);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
