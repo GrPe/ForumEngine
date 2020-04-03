@@ -11,12 +11,15 @@
             <p>@c</p>
         }
     </div>
-    <hr class="my-4">
+    @if(!String.IsNullOrWhiteSpace(Model.PhotoPath))
+    {
+        <img src="@Model.PhotoPath" class="image-center" />
+    }
     @foreach (var comment in Model.Comments)
     {
         <hr />
         <div class="media">
-            <img src="~/img/post.png" class="mr-3" width="64" height="64" />
+            <img src="~/img/post.png" class="mr-3 image-avatar" />
             <div class="media-body">
                 @foreach (var c in comment.Content)
                 {
