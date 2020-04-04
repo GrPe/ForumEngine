@@ -2,9 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace ForumEngine.Data.Images
@@ -24,7 +22,7 @@ namespace ForumEngine.Data.Images
             BlobContainerClient containerClient = client.GetBlobContainerClient("images");
             var id = Guid.NewGuid().ToString();
 
-            BlobClient blobClient = containerClient.GetBlobClient(id + "." + image.FileName.Split('.')[^1]);
+            BlobClient blobClient = containerClient.GetBlobClient(id + "." + Path.GetExtension(image.FileName));
 
             await blobClient.UploadAsync(image.OpenReadStream());
 

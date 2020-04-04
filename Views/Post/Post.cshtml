@@ -3,7 +3,6 @@
 <div class="jumbotron">
     <h1 class="display-4">@Model.Title</h1>
     <a asp-action="Edit" asp-route-id="@Model.Id" style="width:100px" class="btn btn-primary">Edit</a>
-    <a asp-action="Remove" asp-route-id="@Model.Id" style="width:100px" class="btn btn-danger">Remove</a>
     <hr />
     <div class="lead">
         @foreach (var c in Model.Content)

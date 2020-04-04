@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace ForumEngine.Models
 {
@@ -15,6 +16,7 @@ namespace ForumEngine.Models
         public List<CommentViewModel> Comments { get; set; }
 
         //permanent hack
+        [Required(AllowEmptyStrings = false, ErrorMessage = "Comment cannot be empty")]
         public string NewCommentContent { get; set; }
     }
 }

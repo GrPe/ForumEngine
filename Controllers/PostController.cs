@@ -80,9 +80,12 @@ namespace ForumEngine.Controllers
             var user = await userManager.GetUserAsync(User);
 
             var post = mapper.Map<Post>(model);
-
-            post.PhotoPath = await imageStorage.Save(model.Image);
             post.User = user;
+            
+            if(model.Image != null)
+            {
+                post.PhotoPath = await imageStorage.Save(model.Image);
+            }
 
             await postRepository.AddAsync(post);
 
@@ -109,20 +112,6 @@ namespace ForumEngine.Controllers
 
             await postRepository.UpdateAsync(post);
             return RedirectToAction("Post", new { id = post.Id });
-        }
-
-        [HttpGet]
-        public  IActionResult Remove(Guid id)
-        {
-            return View(id);
-        }
-
-        [HttpPost]
-        [ActionName("Remove")]
-        public async Task<IActionResult> RemoveConfirm(Guid id)
-        {
-            await postRepository.RemoveAsync(id);
-            return RedirectToAction("Index");
         }
 
     }
