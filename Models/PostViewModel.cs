@@ -8,6 +8,7 @@ namespace ForumEngine.Models
     {
         public Guid Id { get; set; }
         public string Title { get; set; }
+        public string UserId { get; set; }
         public string UserName { get; set; }
         public string UserPhotoPath { get; set; }
         public List<string> Content { get; set; }

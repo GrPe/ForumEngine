@@ -1,0 +1,27 @@
+﻿@model CommentViewModel
+
+<hr />
+<div class="media">
+    @if (!string.IsNullOrWhiteSpace(Model.UserPhotoPath))
+    {
+        <img src="@Model.UserPhotoPath" class="mr-3 image-avatar" />
+    }
+    else
+    {
+        <img src="~/img/message-circle.png" class="mr-3 image-avatar" />
+    }
+    <div class="media-body">
+        <p><a asp-action="#" asp-controller="#" asp-route-id="@Model.UserId">@Model.UserName</a></p>
+        @foreach (var c in Model.Content)
+        {
+            <p>@c</p>
+        }
+
+        @if(!string.IsNullOrWhiteSpace(Model.PhotoPath))
+        {
+            <br />
+            <img src="@Model.PhotoPath" class="image-comment-center" />
+        }
+    </div>
+</div>
+<br />

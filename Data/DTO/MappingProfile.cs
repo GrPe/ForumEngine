@@ -15,7 +15,8 @@ namespace ForumEngine.Data.DTO
                 .ForMember(dest => dest.UserPhotoPath, opt => opt.MapFrom(scr => scr.User.PhotoPath))
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(scr => SplitContent(scr.Content)))
                 .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(scr => scr.PhotoPath))
-                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(scr => scr.CreatedOn));
+                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(scr => scr.CreatedOn))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(scr => scr.User.Id));
 
             CreateMap<Post, PostSummaryViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(scr => scr.Id))
@@ -31,11 +32,12 @@ namespace ForumEngine.Data.DTO
             CreateMap<Post, PostViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(scr => scr.Id))
                 .ForMember(dest => dest.UserName, opt => opt.MapFrom(scr => scr.User.UserName))
-                .ForMember(dest => dest.UserPhotoPath, opt => opt.MapFrom(scr => scr.PhotoPath))
+                .ForMember(dest => dest.UserPhotoPath, opt => opt.MapFrom(scr => scr.User.PhotoPath))
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(scr => SplitContent(scr.Content)))
                 .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(scr => scr.PhotoPath))
                 .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(scr => scr.CreatedOn))
-                .ForMember(dest => dest.Comments, opt => opt.MapFrom(scr => scr.Comments.OrderBy(c => c.CreatedOn)));
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(scr => scr.Comments.OrderBy(c => c.CreatedOn)))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
 
             CreateMap<IEnumerable<Post>, PostListViewModel>()
                 .ForMember(dest => dest.Posts, opt => opt.MapFrom(scr => scr.OrderByDescending(p => p.CreatedOn)));
