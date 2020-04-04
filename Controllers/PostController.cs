@@ -45,6 +45,12 @@ namespace ForumEngine.Controllers
 
             PostViewModel model = mapper.Map<PostViewModel>(post);
 
+            var user = await userManager.GetUserAsync(User);
+            if (post.User.Id == user.Id)
+            {
+                model.AllowEditing = true;
+            }
+
             return View(model);
         }
 
@@ -81,8 +87,8 @@ namespace ForumEngine.Controllers
 
             var post = mapper.Map<Post>(model);
             post.User = user;
-            
-            if(model.Image != null)
+
+            if (model.Image != null)
             {
                 post.PhotoPath = await imageStorage.Save(model.Image);
             }
@@ -96,6 +102,12 @@ namespace ForumEngine.Controllers
         public async Task<IActionResult> Edit(Guid id)
         {
             var post = await postRepository.GetByIdAsync(id);
+            var user = await userManager.GetUserAsync(User);
+
+            if (post.User.Id != user.Id)
+            {
+                return RedirectToAction("AccessError", "Home");
+            }
 
             var model = mapper.Map<PostEditViewModel>(post);
 
@@ -106,6 +118,13 @@ namespace ForumEngine.Controllers
         public async Task<IActionResult> Edit(PostEditViewModel model)
         {
             var post = await postRepository.GetByIdAsync(model.Id);
+            var user = await userManager.GetUserAsync(User);
+
+            if (post.User.Id != user.Id)
+            {
+                return RedirectToAction("AccessError", "Home");
+            }
+
             post.Title = model.Title;
             post.Content = model.Content;
             post.ModifiedOn = DateTime.UtcNow;

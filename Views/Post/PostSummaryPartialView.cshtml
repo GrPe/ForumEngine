@@ -7,6 +7,12 @@
         <a asp-action="Post" asp-controller="Post" asp-route-id="@Model.Id">
             <h5 class="mt-0">@Model.Title</h5>
         </a>
+        <p>
+            by 
+            <a asp-action="#" asp-controller="#" asp-route-id="@Model.UserId">
+                @Model.UserName
+            </a>
+        </p>
         @Model.ContentSummary
     </div>
 </div>

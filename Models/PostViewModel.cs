@@ -14,6 +14,7 @@ namespace ForumEngine.Models
         public string PhotoPath { get; set; }
         public DateTime CreatedOn { get; set; }
         public List<CommentViewModel> Comments { get; set; }
+        public bool AllowEditing { get; set; }
 
         //permanent hack
         [Required(AllowEmptyStrings = false, ErrorMessage = "Comment cannot be empty")]

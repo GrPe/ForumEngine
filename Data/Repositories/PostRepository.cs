@@ -30,7 +30,7 @@ namespace ForumEngine.Data
 
         public IEnumerable<Post> GetListByPage(int page, int pageSize= 20)
         {
-            return context.Posts.OrderByDescending(p => p.CreatedOn).Skip(pageSize * page).Take(pageSize);
+            return context.Posts.Include(p => p.User).OrderByDescending(p => p.CreatedOn).Skip(pageSize * page).Take(pageSize);
         }
 
         public async Task AddAsync(Post post)

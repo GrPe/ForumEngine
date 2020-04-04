@@ -33,6 +33,11 @@ namespace ForumEngine.Controllers
             return View(null);
         }
 
+        public IActionResult AccessError()
+        {
+            return Redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

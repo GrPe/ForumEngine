@@ -20,7 +20,9 @@ namespace ForumEngine.Data.DTO
             CreateMap<Post, PostSummaryViewModel>()
                 .ForMember(dest => dest.Id, opt => opt.MapFrom(scr => scr.Id))
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(scr => scr.Title))
-                .ForMember(dest => dest.ContentSummary, opt => opt.MapFrom(scr => ShrinkContent(scr.Content)));
+                .ForMember(dest => dest.ContentSummary, opt => opt.MapFrom(scr => ShrinkContent(scr.Content)))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(scr => scr.User.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(scr => scr.User.UserName));
 
             CreateMap<PostCreateViewModel, Post>()
                 .ForMember(dest => dest.Title, opt => opt.MapFrom(scr => scr.Title))

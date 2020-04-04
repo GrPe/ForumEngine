@@ -2,7 +2,11 @@
 
 <div class="jumbotron">
     <h1 class="display-4">@Model.Title</h1>
-    <a asp-action="Edit" asp-route-id="@Model.Id" style="width:100px" class="btn btn-primary">Edit</a>
+
+    @if (Model.AllowEditing)
+    {
+        <a asp-action="Edit" asp-route-id="@Model.Id" style="width:100px" class="btn btn-primary">Edit</a>
+    }
     <hr />
     <div class="lead">
         @foreach (var c in Model.Content)
@@ -10,7 +14,7 @@
             <p>@c</p>
         }
     </div>
-    @if(!String.IsNullOrWhiteSpace(Model.PhotoPath))
+    @if (!String.IsNullOrWhiteSpace(Model.PhotoPath))
     {
         <img src="@Model.PhotoPath" class="image-center" />
     }
