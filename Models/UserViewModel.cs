@@ -1,11 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace ForumEngine.Models
+﻿namespace ForumEngine.Models
 {
     public class UserViewModel
     {
+        public string Name { get; set; }
+        public string Email { get; set; }
+        public string Bio { get; set; }
+        public string PhotoPath { get; set; }
+
     }
 }

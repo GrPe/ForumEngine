@@ -24,9 +24,17 @@ namespace ForumEngine.Controllers
         }
 
         [HttpGet]
-        public IActionResult Profile(string id)
+        public async Task<IActionResult> Profile(string id)
         {
-            var user = userRepository.GetUserById(id);
+            ForumUser user;
+            if(!string.IsNullOrWhiteSpace(id))
+            {
+                user = userRepository.GetUserById(id);
+            }
+            else
+            {
+                user = await userManager.GetUserAsync(User);
+            }
 
             var model = mapper.Map<UserViewModel>(user);
 

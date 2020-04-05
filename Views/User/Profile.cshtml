@@ -1,0 +1,30 @@
+﻿@using Microsoft.AspNetCore.Identity
+@model UserViewModel
+
+<h2>@Model.Name's profile</h2>
+
+<div>
+    <br />
+    <br />
+    <table class="table">
+        <tr>
+            <th scope="row"><label asp-for="@Model.Name"></label></th>
+            <th>@Model.Name</th>
+        </tr>
+        <tr>
+            <th scope="row"><label asp-for="@Model.Email"></label></th>
+            <th>@Model.Email</th>
+        </tr>
+        <tr>
+            <th scope="row"><label asp-for="@Model.Bio"></label></th>
+            <th>@Model.Bio</th>
+        </tr>
+        <tr>
+            <th>Image</th>
+            <th>
+                <img src="@Model.PhotoPath" class="image-avatar-full" />
+            </th>
+        </tr>
+    </table>
+</div>
+

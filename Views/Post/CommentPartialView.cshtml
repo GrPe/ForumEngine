@@ -11,7 +11,7 @@
         <img src="~/img/message-circle.png" class="mr-3 image-avatar" />
     }
     <div class="media-body">
-        <p><a asp-action="#" asp-controller="#" asp-route-id="@Model.UserId">@Model.UserName</a></p>
+        <p><a asp-action="Profile" asp-controller="User" asp-route-id="@Model.UserId">@Model.UserName</a></p>
         @foreach (var c in Model.Content)
         {
             <p>@c</p>

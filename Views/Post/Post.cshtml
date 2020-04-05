@@ -19,7 +19,7 @@
                 <img src="~/img/user.png" class="mr-3 image-avatar" />
             }
             <div class="media-body">
-                by <a asp-action="#" asp-controller="#" asp-route-id="@Model.UserId">@Model.UserName</a>
+                by <a asp-action="Profile" asp-controller="User" asp-route-id="@Model.UserId">@Model.UserName</a>
                 <br/>
                 @Model.CreatedOn.ToShortDateString()
             </div>

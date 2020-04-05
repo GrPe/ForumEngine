@@ -17,6 +17,7 @@ using ForumEngine.Data.Mocks;
 using ForumEngine.Data.DTO;
 using AutoMapper;
 using ForumEngine.Data.Images;
+using ForumEngine.Data.Repositories;
 
 namespace ForumEngine
 {
@@ -54,6 +55,7 @@ namespace ForumEngine
             });
 
             services.AddScoped<PostRepository>();
+            services.AddScoped<UserRepository>();
             services.AddScoped<IEmailSender, EmailSenderMock>();
             services.AddScoped<IImageStorage, AzureImageStorage>();
             services.AddSingleton<IConfiguration>(Configuration);
