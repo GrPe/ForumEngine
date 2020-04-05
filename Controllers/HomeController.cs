@@ -38,7 +38,7 @@ namespace ForumEngine.Controllers
             return Redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
 
-        public IActionResult InvalidImageSize()
+        public IActionResult ImageValidationError()
         {
             return View();
         }

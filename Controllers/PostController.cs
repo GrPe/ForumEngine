@@ -60,7 +60,7 @@ namespace ForumEngine.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return RedirectToAction("InvalidImageSize", "Home");
+                return RedirectToAction("ImageValidationError", "Home");
             }
 
             var post = await postRepository.GetByIdAsync(model.Id);
@@ -95,7 +95,7 @@ namespace ForumEngine.Controllers
         {
             if(!ModelState.IsValid)
             {
-                return RedirectToAction("InvalidImageSize", "Home");
+                return RedirectToAction("ImageValidationError", "Home");
             }
 
             var user = await userManager.GetUserAsync(User);
