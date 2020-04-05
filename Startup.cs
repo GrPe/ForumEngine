@@ -37,6 +37,7 @@ namespace ForumEngine
             services.AddIdentity<ForumUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 

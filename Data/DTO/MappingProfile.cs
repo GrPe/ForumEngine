@@ -56,6 +56,10 @@ namespace ForumEngine.Data.DTO
                 .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
                 .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Bio))
                 .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(src => src.PhotoPath));
+
+            CreateMap<ForumUser, UserUpdateViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Bio));
         }
 
         private List<string> SplitContent(string content)

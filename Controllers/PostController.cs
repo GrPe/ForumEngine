@@ -76,7 +76,7 @@ namespace ForumEngine.Controllers
 
             if(model.CommentPhoto != null)
             {
-                comment.PhotoPath = await imageStorage.Save(model.CommentPhoto);
+                comment.PhotoPath = await imageStorage.SaveAsync(model.CommentPhoto);
             }
 
             await postRepository.AddCommentAsync(comment);
@@ -105,7 +105,7 @@ namespace ForumEngine.Controllers
 
             if (model.Image != null)
             {
-                post.PhotoPath = await imageStorage.Save(model.Image);
+                post.PhotoPath = await imageStorage.SaveAsync(model.Image);
             }
 
             await postRepository.AddAsync(post);
