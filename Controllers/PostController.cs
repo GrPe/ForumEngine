@@ -58,6 +58,11 @@ namespace ForumEngine.Controllers
         [ActionName("Post")]
         public async Task<IActionResult> AddComment(PostViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("InvalidImageSize", "Home");
+            }
+
             var post = await postRepository.GetByIdAsync(model.Id);
             var user = await userManager.GetUserAsync(User);
 
@@ -68,6 +73,11 @@ namespace ForumEngine.Controllers
                 Content = model.NewCommentContent,
                 CreatedOn = DateTime.UtcNow
             };
+
+            if(model.CommentPhoto != null)
+            {
+                comment.PhotoPath = await imageStorage.Save(model.CommentPhoto);
+            }
 
             await postRepository.AddCommentAsync(comment);
 
@@ -83,6 +93,11 @@ namespace ForumEngine.Controllers
         [HttpPost]
         public async Task<IActionResult> Add(PostCreateViewModel model)
         {
+            if(!ModelState.IsValid)
+            {
+                return RedirectToAction("InvalidImageSize", "Home");
+            }
+
             var user = await userManager.GetUserAsync(User);
 
             var post = mapper.Map<Post>(model);

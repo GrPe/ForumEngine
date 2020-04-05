@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ForumEngine.Extentions;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
@@ -18,7 +20,10 @@ namespace ForumEngine.Models
         public bool AllowEditing { get; set; }
 
         //permanent hack
-        [Required(AllowEmptyStrings = false, ErrorMessage = "Comment cannot be empty")]
+        [Required(ErrorMessage = "Comment cannot be empty")]
         public string NewCommentContent { get; set; }
+        [AllowedExtentions(new string[] { ".jpg", ".png" })]
+        [MaxFileSize(1 * 1024 * 1024)]
+        public IFormFile CommentPhoto { get; set; }
     }
 }

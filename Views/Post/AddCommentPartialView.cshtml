@@ -1,0 +1,29 @@
+﻿@model PostViewModel
+
+<form asp-action="Post" method="post" enctype="multipart/form-data">
+    <div class="form-group">
+        <textarea asp-for="NewCommentContent" class="form-control" rows="3"></textarea>
+        <span asp-validation-for="NewCommentContent" class="text-danger"></span>
+    </div>
+    <div class="form-group">
+        <div class="custom-file">
+            <input id="img-input" asp-for="CommentPhoto" type="file" class="custom-file-input" />
+            <label class="custom-file-label" id="img-label">Choose image</label>
+            <span asp-validation-for="CommentPhoto" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <input type="submit" value="Add comment" class="btn btn-primary" />
+    </div>
+</form>
+
+
+<script>
+    $(document).ready(function () {
+        $('#img-input').change(function () {
+            var fileName = $("#img-input").val().split("\\").pop();
+            $('#img-label').text(fileName);
+        });
+    });
+</script>

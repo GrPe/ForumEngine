@@ -38,6 +38,11 @@ namespace ForumEngine.Controllers
             return Redirect("https://www.youtube.com/watch?v=dQw4w9WgXcQ");
         }
 
+        public IActionResult InvalidImageSize()
+        {
+            return View();
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
