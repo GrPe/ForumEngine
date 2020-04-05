@@ -11,45 +11,55 @@ namespace ForumEngine.Data.DTO
         public MappingProfile()
         {
             CreateMap<Comment, CommentViewModel>()
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(scr => scr.User.UserName))
-                .ForMember(dest => dest.UserPhotoPath, opt => opt.MapFrom(scr => scr.User.PhotoPath))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(scr => SplitContent(scr.Content)))
-                .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(scr => scr.PhotoPath))
-                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(scr => scr.CreatedOn))
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(scr => scr.User.Id));
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                .ForMember(dest => dest.UserPhotoPath, opt => opt.MapFrom(src => src.User.PhotoPath))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => SplitContent(src.Content)))
+                .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(src => src.PhotoPath))
+                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
 
             CreateMap<Post, PostSummaryViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(scr => scr.Id))
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(scr => scr.Title))
-                .ForMember(dest => dest.ContentSummary, opt => opt.MapFrom(scr => ShrinkContent(scr.Content)))
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(scr => scr.User.Id))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(scr => scr.User.UserName));
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                .ForMember(dest => dest.ContentSummary, opt => opt.MapFrom(src => ShrinkContent(src.Content)))
+                .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName));
 
             CreateMap<PostCreateViewModel, Post>()
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(scr => scr.Title))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(scr => scr.Content));
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content));
 
             CreateMap<Post, PostViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(scr => scr.Id))
-                .ForMember(dest => dest.UserName, opt => opt.MapFrom(scr => scr.User.UserName))
-                .ForMember(dest => dest.UserPhotoPath, opt => opt.MapFrom(scr => scr.User.PhotoPath))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(scr => SplitContent(scr.Content)))
-                .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(scr => scr.PhotoPath))
-                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(scr => scr.CreatedOn))
-                .ForMember(dest => dest.Comments, opt => opt.MapFrom(scr => scr.Comments.OrderBy(c => c.CreatedOn)))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.UserName, opt => opt.MapFrom(src => src.User.UserName))
+                .ForMember(dest => dest.UserPhotoPath, opt => opt.MapFrom(src => src.User.PhotoPath))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => SplitContent(src.Content)))
+                .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(src => src.PhotoPath))
+                .ForMember(dest => dest.CreatedOn, opt => opt.MapFrom(src => src.CreatedOn))
+                .ForMember(dest => dest.Comments, opt => opt.MapFrom(src => src.Comments.OrderBy(c => c.CreatedOn)))
                 .ForMember(dest => dest.UserId, opt => opt.MapFrom(src => src.User.Id));
 
             CreateMap<IEnumerable<Post>, PostListViewModel>()
-                .ForMember(dest => dest.Posts, opt => opt.MapFrom(scr => scr.OrderByDescending(p => p.CreatedOn)));
+                .ForMember(dest => dest.Posts, opt => opt.MapFrom(src => src.OrderByDescending(p => p.CreatedOn)));
 
             CreateMap<Post, PostEditViewModel>()
-                .ForMember(dest => dest.Id, opt => opt.MapFrom(scr => scr.Id))
-                .ForMember(dest => dest.Title, opt => opt.MapFrom(scr => scr.Title))
-                .ForMember(dest => dest.Content, opt => opt.MapFrom(scr => scr.Content))
+                .ForMember(dest => dest.Id, opt => opt.MapFrom(src => src.Id))
+                .ForMember(dest => dest.Title, opt => opt.MapFrom(src => src.Title))
+                .ForMember(dest => dest.Content, opt => opt.MapFrom(src => src.Content))
                 .ReverseMap();
 
             CreateMap<IEnumerable<Post>, HomeViewModel>()
-                .ForMember(dest => dest.Posts, opt => opt.MapFrom(scr => scr));
+                .ForMember(dest => dest.Posts, opt => opt.MapFrom(src => src));
+
+            CreateMap<ForumUser, UserViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Email, opt => opt.MapFrom(src => src.Email))
+                .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Bio))
+                .ForMember(dest => dest.PhotoPath, opt => opt.MapFrom(src => src.PhotoPath));
+
+            CreateMap<ForumUser, UserUpdateViewModel>()
+                .ForMember(dest => dest.Name, opt => opt.MapFrom(src => src.UserName))
+                .ForMember(dest => dest.Bio, opt => opt.MapFrom(src => src.Bio));
         }
 
         private List<string> SplitContent(string content)
@@ -60,7 +70,7 @@ namespace ForumEngine.Data.DTO
         private string ShrinkContent(string content)
         {
             var shrinkContent = content[0..Math.Min(100, content.Length)];
-            if(content.Length > 100)
+            if (content.Length > 100)
             {
                 shrinkContent += "...";
             }

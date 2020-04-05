@@ -1,12 +1,7 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.UI;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.EntityFrameworkCore;
 using ForumEngine.Data;
 using Microsoft.Extensions.Configuration;
@@ -17,6 +12,7 @@ using ForumEngine.Data.Mocks;
 using ForumEngine.Data.DTO;
 using AutoMapper;
 using ForumEngine.Data.Images;
+using ForumEngine.Data.Repositories;
 
 namespace ForumEngine
 {
@@ -36,6 +32,7 @@ namespace ForumEngine
             services.AddIdentity<ForumUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationDbContext>()
                 .AddDefaultTokenProviders();
+
             services.AddControllersWithViews();
             services.AddRazorPages();
 
@@ -54,12 +51,12 @@ namespace ForumEngine
             });
 
             services.AddScoped<PostRepository>();
+            services.AddScoped<UserRepository>();
             services.AddScoped<IEmailSender, EmailSenderMock>();
             services.AddScoped<IImageStorage, AzureImageStorage>();
             services.AddSingleton<IConfiguration>(Configuration);
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -70,7 +67,6 @@ namespace ForumEngine
             else
             {
                 app.UseExceptionHandler("/Home/Error");
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
             }
             app.UseHttpsRedirection();

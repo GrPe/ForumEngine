@@ -5,6 +5,6 @@ namespace ForumEngine.Data.Images
 {
     public interface IImageStorage
     {
-        Task<string> Save(IFormFile image);
+        Task<string> SaveAsync(IFormFile image);
     }
 }

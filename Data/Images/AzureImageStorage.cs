@@ -16,7 +16,7 @@ namespace ForumEngine.Data.Images
             this.configuration = configuration;
         }
 
-        public async Task<string> Save(IFormFile image)
+        public async Task<string> SaveAsync(IFormFile image)
         {
             BlobServiceClient client = new BlobServiceClient(configuration.GetConnectionString("AzureBlobStorage"));
             BlobContainerClient containerClient = client.GetBlobContainerClient("images");

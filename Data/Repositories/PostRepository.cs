@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace ForumEngine.Data
 {
-    public class PostRepository : IRepository<Post, Guid>
+    public class PostRepository
     {
         private readonly ApplicationDbContext context;
 
