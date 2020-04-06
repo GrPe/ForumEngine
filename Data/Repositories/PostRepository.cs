@@ -33,6 +33,11 @@ namespace ForumEngine.Data
             return context.Posts.Include(p => p.User).OrderByDescending(p => p.CreatedOn).Skip(pageSize * page).Take(pageSize);
         }
 
+        public int GetMaxPage(int pageSize = 20)
+        {
+            return context.Posts.Count() / (pageSize+1);
+        }
+
         public async Task AddAsync(Post post)
         {
             post.CreatedOn = DateTime.UtcNow;

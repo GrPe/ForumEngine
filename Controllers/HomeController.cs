@@ -20,12 +20,14 @@ namespace ForumEngine.Controllers
             this.mapper = mapper;
         }
 
-        public IActionResult Index(int? page)
+        public IActionResult Index(int? id)
         {
             if(User.Identity.IsAuthenticated)
             {
-                var response = postRepository.GetListByPage(page ?? 0);
+                var response = postRepository.GetListByPage(id ?? 0,5);
                 var model = mapper.Map<HomeViewModel>(response);
+                model.CurrentPage = id ?? 0;
+                model.MaxPage = postRepository.GetMaxPage(5);
 
                 return View(model);
             }

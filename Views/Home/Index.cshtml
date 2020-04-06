@@ -12,6 +12,26 @@
     {
         @await Html.PartialAsync("../Post/PostSummaryPartialView", post)
     }
+
+    <form>
+        @if (Model.CurrentPage == 0)
+        {
+            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage-1)" class="btn btn-info" disabled style="width:96px">Previous</button>
+        }
+        else
+        {
+            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage-1)" class="btn btn-info" style="width:96px">Previous</button>
+        }
+
+        @if (Model.CurrentPage != Model.MaxPage)
+        {
+            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage+1)" class="btn btn-info" style="width:96px">Next</button>
+        }
+        else
+        {
+            <button asp-action="Index" asp-route-id="@(Model.CurrentPage+1)" class="btn btn-info" disabled style="width:96px">Next</button>
+        }
+    </form>
 }
 else
 {
