@@ -29,6 +29,11 @@ namespace ForumEngine.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile(string id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
             ForumUser user;
             if(!string.IsNullOrWhiteSpace(id))
             {
@@ -57,6 +62,11 @@ namespace ForumEngine.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(UserUpdateViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
             var user = await userManager.GetUserAsync(User);
 
             user.UserName = model.Name;

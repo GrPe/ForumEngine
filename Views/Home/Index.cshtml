@@ -8,28 +8,34 @@
 
 @if (SignInManager.IsSignedIn(User))
 {
-    foreach (var post in Model.Posts)
-    {
-        @await Html.PartialAsync("../Post/PostSummaryPartialView", post)
-    }
+    <br/>
+
+    <div class="list-group">
+        @foreach (var post in Model.Posts)
+        {
+            @await Html.PartialAsync("../Post/PostSummaryPartialView", post)
+        }
+    </div>
+    <br />
+    <br />
 
     <form>
         @if (Model.CurrentPage == 0)
         {
-            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage-1)" class="btn btn-info" disabled style="width:96px">Previous</button>
+            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage-1)" class="btn btn-secondary" disabled style="width:96px">Previous</button>
         }
         else
         {
-            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage-1)" class="btn btn-info" style="width:96px">Previous</button>
+            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage-1)" class="btn btn-secondary" style="width:96px">Previous</button>
         }
 
         @if (Model.CurrentPage != Model.MaxPage)
         {
-            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage+1)" class="btn btn-info" style="width:96px">Next</button>
+            <button type="submit" asp-action="Index" asp-route-id="@(Model.CurrentPage+1)" class="btn btn-secondary" style="width:96px">Next</button>
         }
         else
         {
-            <button asp-action="Index" asp-route-id="@(Model.CurrentPage+1)" class="btn btn-info" disabled style="width:96px">Next</button>
+            <button asp-action="Index" asp-route-id="@(Model.CurrentPage+1)" class="btn btn-secondary" disabled style="width:96px">Next</button>
         }
     </form>
 }

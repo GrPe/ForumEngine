@@ -9,19 +9,22 @@ namespace ForumEngine.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
         private readonly PostRepository postRepository;
         private readonly IMapper mapper;
 
         public HomeController(ILogger<HomeController> logger, PostRepository postRepository, IMapper mapper)
         {
-            _logger = logger;
             this.postRepository = postRepository;
             this.mapper = mapper;
         }
 
         public IActionResult Index(int? id)
         {
+            if(!ModelState.IsValid)
+            {
+                return RedirectToAction("Error");
+            }
+
             if(User.Identity.IsAuthenticated)
             {
                 var response = postRepository.GetListByPage(id ?? 0,5);

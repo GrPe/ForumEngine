@@ -1,19 +1,19 @@
 ﻿@model PostSummaryViewModel
 
-<hr />
-<div class="media">
-    <img src="~/img/post.png" class="mr-3 image-avatar" />
-    <div class="media-body">
-        <a asp-action="Post" asp-controller="Post" asp-route-id="@Model.Id">
-            <h5 class="mt-0">@Model.Title</h5>
-        </a>
-        <p>
-            by 
-            <a asp-action="Profile" asp-controller="User" asp-route-id="@Model.UserId">
-                @Model.UserName
+<div class="list-group-item">
+    <div class="media">
+        <img src="~/img/post.png" class="mr-3 image-avatar" />
+        <div class="media-body">
+            <a class="text-white"  asp-action="Post" asp-controller="Post" asp-route-id="@Model.Id">
+                <h5 class="mt-0">@Model.Title</h5>
             </a>
-        </p>
-        @Model.ContentSummary
+            <p>
+                by
+                <a asp-action="Profile" asp-controller="User" asp-route-id="@Model.UserId">
+                    @Model.UserName
+                </a>
+            </p>
+            @Model.ContentSummary
+        </div>
     </div>
 </div>
-<br />

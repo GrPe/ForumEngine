@@ -35,7 +35,7 @@ namespace ForumEngine.Data
 
         public int GetMaxPage(int pageSize = 20)
         {
-            return context.Posts.Count() / (pageSize+1);
+            return (context.Posts.Count() - 1) / pageSize;
         }
 
         public async Task AddAsync(Post post)

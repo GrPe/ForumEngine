@@ -41,6 +41,11 @@ namespace ForumEngine.Controllers
         [HttpGet]
         public async Task<IActionResult> Post(Guid id)
         {
+            if(!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
             var post = await postRepository.GetByIdAsync(id);
 
             PostViewModel model = mapper.Map<PostViewModel>(post);
@@ -116,6 +121,11 @@ namespace ForumEngine.Controllers
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
             var post = await postRepository.GetByIdAsync(id);
             var user = await userManager.GetUserAsync(User);
 
@@ -132,6 +142,11 @@ namespace ForumEngine.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(PostEditViewModel model)
         {
+            if (!ModelState.IsValid)
+            {
+                return RedirectToAction("Error", "Home");
+            }
+
             var post = await postRepository.GetByIdAsync(model.Id);
             var user = await userManager.GetUserAsync(User);
 

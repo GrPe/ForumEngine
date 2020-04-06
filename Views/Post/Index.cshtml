@@ -14,9 +14,12 @@
 }
 else
 {
-    @foreach (var post in Model.Posts)
-    {
-        @await Html.PartialAsync("../Post/PostSummaryPartialView", post)
-    }
+    <br/>
 
+    <div class="list-group">
+        @foreach (var post in Model.Posts)
+        {
+            @await Html.PartialAsync("../Post/PostSummaryPartialView", post)
+        }
+    </div>
 }
