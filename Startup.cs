@@ -44,7 +44,7 @@ namespace ForumEngine
                 options.Password.RequireLowercase = false;
                 options.Password.RequireNonAlphanumeric = false;
                 options.Password.RequireUppercase = false;
-                options.Password.RequiredLength = 2;
+                options.Password.RequiredLength = 12;
                 options.Password.RequiredUniqueChars = 0;
 
                 options.User.RequireUniqueEmail = true;
@@ -53,7 +53,8 @@ namespace ForumEngine
             services.AddScoped<PostRepository>();
             services.AddScoped<UserRepository>();
             services.AddScoped<IEmailSender, EmailSenderMock>();
-            services.AddScoped<IImageStorage, AzureImageStorage>();
+            //services.AddScoped<IImageStorage, AzureImageStorage>();
+            services.AddScoped<IImageStorage, LocalImageStorage>();
             services.AddSingleton<IConfiguration>(Configuration);
         }
 
